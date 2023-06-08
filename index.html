@@ -1,12 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+      
+    </style>
 </head>
 <body>
-    hi
+    <div class="container">
+        <div class="login-form">
+            <div class="form-left">
+                <img src="asset/images/Open source-amico.svg" alt="Logo" width="400" height="400">
+            </div>
+            <div class="form-right">
+                <div class="form-title">
+                    <h2>Login Form</h2>
+                </div>
+                
+                <div class="form-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <button class="register">Register</button>
+                    <button type="submit" onclick="login()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popup-content">
+            <h3>User Details</h3>
+            <div id="user-details"></div>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the register button element
+        const registerButton = document.querySelector('.register');
+
+        // Add click event listener to the register button
+        registerButton.addEventListener('click', () => {
+            // Open the registration form page
+            window.location.href = 'http://127.0.0.1:5500/resgisteration%20form.html';
+        });
+
+        function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    // Retrieve the stored form data from local storage
+    var formData = JSON.parse(localStorage.getItem("formData"));
+
+    if (formData && formData.name === username && formData.password === password) {
+        // If the username and password match, display the user details
+        var userDetails = document.getElementById("user-details");
+        userDetails.innerHTML = `
+            <p><strong>Name:</strong> ${formData.name}</p>
+            <p><strong>Email:</strong> ${formData.email}</p>
+            <p><strong>Mobile Number:</strong> ${formData.mobile}</p>
+            <p><strong>Address:</strong> ${formData.address}</p>
+        `;
+
+        // Show the popup
+        var popup = document.getElementById("popup");
+        popup.classList.add("show");
+    } else {
+        // If the username and password do not match, show an error message
+        alert("Invalid username or password. Please try again.");
+    }
+}
+
+
+        function closePopup() {
+            // Clear the username and password fields
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+
+            // Hide the popup
+            var popup = document.getElementById("popup");
+            popup.classList.remove("show");
+        }
+    </script>
 </body>
 </html>
