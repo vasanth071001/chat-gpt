@@ -43,15 +43,14 @@
         }
 
         .popup-content button {
-    padding: 10px 20px;
-    border-radius: 4px;
-    background-color: red; /* Set the background color to red */
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    font-family: 'Poppins', Arial, sans-serif; /* Apply Poppins font */
-}
-
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: red; /* Set the background color to red */
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', Arial, sans-serif; /* Apply Poppins font */
+        }
 
         .show {
             visibility: visible;
@@ -197,14 +196,19 @@
             // Retrieve the stored form data from local storage
             var formData = JSON.parse(localStorage.getItem("formData"));
 
-            if (formData && formData.name === username && formData.password === password) {
+            // Check if the form data exists and find a matching username and password
+            var matchingUser = formData.find(function(user) {
+                return user.name === username && user.password === password;
+            });
+
+            if (matchingUser) {
                 // If the username and password match, display the user details
                 var userDetails = document.getElementById("user-details");
                 userDetails.innerHTML = `
-                    <p><strong>Name:</strong> ${formData.name}</p>
-                    <p><strong>Email:</strong> ${formData.email}</p>
-                    <p><strong>Mobile Number:</strong> ${formData.mobile}</p>
-                    <p><strong>Address:</strong> ${formData.address}</p>
+                    <p><strong>Name:</strong> ${matchingUser.name}</p>
+                    <p><strong>Email:</strong> ${matchingUser.email}</p>
+                    <p><strong>Mobile Number:</strong> ${matchingUser.mobile}</p>
+                    <p><strong>Address:</strong> ${matchingUser.address}</p>
                 `;
 
                 // Show the popup

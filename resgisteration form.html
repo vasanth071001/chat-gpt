@@ -104,14 +104,14 @@
             text-align: center;
         }
         .popup-content button {
-    padding: 10px 20px;
-    border-radius: 4px;
-    background-color: red; /* Change the background color to red */
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    font-family: 'Poppins', Arial, sans-serif; /* Apply Poppins font */
-}
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: red; /* Change the background color to red */
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', Arial, sans-serif; /* Apply Poppins font */
+        }
 
         .show {
             visibility: visible;
@@ -202,8 +202,12 @@
                 return;
             }
 
-            // Create an object to store the form data
-            var formData = {
+            // Retrieve existing registrations from local storage or initialize an empty array
+            var existingData = localStorage.getItem("formData");
+            var formData = existingData ? JSON.parse(existingData) : [];
+
+            // Create a new registration object
+            var newRegistration = {
                 name: name,
                 password: password,
                 email: email,
@@ -211,7 +215,10 @@
                 address: address
             };
 
-            // Store the form data in local storage
+            // Add the new registration to the existing data
+            formData.push(newRegistration);
+
+            // Store the updated form data in local storage
             localStorage.setItem("formData", JSON.stringify(formData));
 
             // Show the popup
